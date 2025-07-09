@@ -2,25 +2,45 @@
     <div class="img">
         <img src="/ranger.png" alt="">
     </div>
-    <div class="login-container">
-        <div class="login-logo">
-            <img src="ford.png" alt="">
-        </div>
-        <div class="login">
-
-            <form action="#" class="login-form">
-                <h2>Login Ford</h2>
-                <label for="fname">Login:</label>
-                <input type="text" id="fname" name="fname" value="">
-                <label for="lname">Senha:</label>
-                <input type="text" id="lname" name="lname" value="">
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-        <div class="copyright">
-            <p>
-                &copy;
-            </p>
+    <div class="container-right">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="ford.png" alt="">
+            </div>
+            <div class="login">
+                <form action="#" class="login-form">
+                    <h2 class="login-title">Boas-Vindas</h2>
+                    <mat-form-field>
+                        <mat-label>nome</mat-label>
+                        <input matInput>
+                      </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>senha</mat-label>
+                        <input matInput type="password">
+                      </mat-form-field>
+                      <!-- <mat-form-field>
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide() ? 'password' : 'text'" />
+                        <button
+                          matIconButton
+                          matSuffix
+                          (click)="clickEvent($event)"
+                          [attr.aria-label]="'Hide password'"
+                          [attr.aria-pressed]="hide()"
+                        >
+                          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                      </mat-form-field> -->
+                      <button matFab extended type="submit">
+                        Basic
+                      </button>
+                </form>
+            </div>
+            <div class="copyright">
+                <p>
+                    &copy; Ford {{dataAtual|date:'y'}} todos direitos reservados 
+                </p>
+            </div>
         </div>
     </div>
 </div>

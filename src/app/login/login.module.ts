@@ -1,8 +1,10 @@
 import { NgModule, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -10,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
     LoginComponent
   ],
   imports: [
-    CommonModule, MatFormFieldModule, MatIconModule
+    CommonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, DatePipe
   ],
   exports: [LoginComponent]
 })

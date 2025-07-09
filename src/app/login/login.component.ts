@@ -7,7 +7,11 @@ import { Component, signal } from '@angular/core';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  
-  
+  dataAtual= new Date()
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
 
 }
