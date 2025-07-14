@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  nome = '';
+  senha = '';
   dataAtual = new Date();
 
   constructor(private router: Router) {}
@@ -18,6 +20,10 @@ export class LoginComponent {
     event.stopPropagation();
   }
   login() {
-    this.router.navigate(['deshboard']);
+    if (this.nome !== 'admin' || this.senha !== '123456') {
+      alert('Nome ou senha Invalidos');
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 }

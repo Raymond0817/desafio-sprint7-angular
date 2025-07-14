@@ -1,4 +1,4 @@
-import { NgModule, signal } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { LoginComponent } from './login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,15 +15,9 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    DatePipe,
     FormsModule,
+    DatePipe,
   ],
   exports: [LoginComponent],
 })
-export class LoginModule {
-  hide = signal(true);
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
-}
+export class LoginModule {}
