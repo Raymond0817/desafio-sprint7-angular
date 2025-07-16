@@ -1,33 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DashboardService } from '../services/dashboard.service';
 import { Veiculo } from '../models/veiculo.model';
 import { VehicleData } from '../models/vehicleData.model';
-import { DashboardService } from '../service/dashboard.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CarroVin } from '../utils/carroVinInterface';
+import {  Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { MenuComponent } from "../menu/menu.component";
 
 @Component({
   selector: 'app-dashboard',
-  standalone: false,
+  imports: [ReactiveFormsModule, CommonModule, MenuComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit{
-  veiculos: Veiculo[] = []
-  veiculoSelecionado!:Veiculo
-  dadosVeiculos!: VehicleData
-  
-  selecionaCarroForms= new FormGroup({
-    carId: new FormControl(''),
-  })
+export class DashboardComponent implements OnInit {
+  vehicles: Veiculo[] = [];
+  selectedVehicle!: Veiculo;
+  vehicleData!: VehicleData;
 
-  constructor(private veiculoService: DashboardService){}
-  ngOnInit(): void {
-    this.veiculoService.getVehicles().subscribe((res)=>{
-      console.log(res.vehicles);
-      this.veiculos = res.vehicles;
-    })
-    this.selecionaCarroForms.controls.carId.valueChanges.subscribe((id)=>{
-      this.veiculoSelecionado = this.veiculos[Number(id) - 1]
-    })
+  carVin!: CarroVin;
+  reqVin!: Subscription;
+
+  selectCarForms = new FormGroup({
+    carId: new FormControl(''),
+  });
+
+  vinForm = new FormGroup({
+    vin: new FormControl(''),
+  });
+
+  onChange() {
+    this.vinForm.controls.vin.valueChanges.subscribe((value) => {
+      this.reqVin = this.dashboardservice
+        .buscarVin(value as string)
+        .subscribe((res) => {
+          this.carVin = res;
+        });
+    });
   }
 
-}
+  constructor(private dashboardservice: DashboardService) { }
+
+  ngOnInit(): void {
+    this.dashboardservice.getVehicles().subscribe((res) => {
+      console.log(res.vehicles);
+      this.vehicles = res.vehicles;
+    });
+    this.selectCarForms.controls.carId.valueChanges.subscribe((id) => {
+      this.selectedVehicle = this.vehicles[Number(id) - 1];
+    });
+    this.onChange();
+  }
+
+  // ngOnDestroy(): void {
+  //   this.reqVin.unsubscribe();
+  // }
+  }
+
